@@ -1,0 +1,41 @@
+name: Run linting and Python tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  python-dev:
+    name: Test Python
+    runs-on: ubuntu-24.04
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.11
+
+    - name: Install dependencies
+      run: |
+        # Installing the model from the published wheel doesn't work for pip > 24.0
+        python3 -m pip install --upgrade "pip<=24.0"
+        pip install -r requirements-dev.txt
+
+    - name: Lint with ruff
+      run: |
+        ruff check .
+
+    - name: Lint with black
+      run: |
+        black --check --verbose .
+
+    - name: Run tests
+      run: |
+        python3 -m pytest -s -vv --cov --cov-fail-under=85

@@ -1,0 +1,10 @@
+-r app/backend/requirements.txt
+-r app/frontend/requirements.txt
+black
+ruff
+coverage
+pytest
+pytest-cov
+pytest-mock
+requests
+httpx

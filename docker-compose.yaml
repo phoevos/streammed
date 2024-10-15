@@ -1,0 +1,22 @@
+name: streammed
+
+services:
+  streamlit-frontend:
+    restart: always
+    build:
+      context: app/frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8501:8501"
+    depends_on:
+      - fastapi-backend
+    environment:
+      - BACKEND_URL=http://fastapi-backend:8000
+
+  fastapi-backend:
+    restart: always
+    build:
+      context: app/backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"

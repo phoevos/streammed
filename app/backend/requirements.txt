@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+pydantic
+spacy>=3.4.2,<3.5.0
+numpy<2.0.0
+nltk
+# Installing the model from this wheel doesn't work for pip > 24.0
+https://huggingface.co/kormilitzin/en_core_med7_lg/resolve/main/en_core_med7_lg-any-py3-none-any.whl
